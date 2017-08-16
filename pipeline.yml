@@ -1,0 +1,28 @@
+# ---
+# resources:
+# - name: resource-tutorial
+  # type: git
+  # source:
+    # uri: https://github.com/rwinch/concourse-gradle-sample.git
+
+jobs:
+- name: job-test-app
+  public: true
+  plan:
+  - task: unit-test
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: maven,tag: '3-jdk-8-alpine'}
+      run:
+          user: root
+          path: sh
+          args:
+          - -exc
+          - |
+            cd "C:\Users\\gemani\\Desktop\\R & D\\TestEnvironment\\Concourse_Tutorial\\SampleExample"
+            mvn test
+            mvn package
+
+        
