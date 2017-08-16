@@ -1,27 +1,31 @@
-# ---
-# resources:
-# - name: resource-tutorial
-  # type: git
-  # source:
-    # uri: https://github.com/rwinch/concourse-gradle-sample.git
-
+---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/GauravEmani/SampleExample.git
+    branch: master
 jobs:
 - name: job-test-app
   public: true
   plan:
+  - get: resource-tutorial
   - task: unit-test
     config:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: maven,tag: '3-jdk-8-alpine'}
+        source: {repository: sonarqube,tag: 'latest'}
+      inputs:
+        - name: resource-tutorial
       run:
           user: root
           path: sh
           args:
           - -exc
           - |
-            cd "C:\Users\\gemani\\Desktop\\R & D\\TestEnvironment\\Concourse_Tutorial\\SampleExample"
+            mvn -f resource-tutorial/pom.xml
+            mvn clean install
             mvn test
             mvn package
 
