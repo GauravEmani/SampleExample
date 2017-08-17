@@ -6,7 +6,7 @@ image_resource:
   source: {repository: pallet/git-client}
 
 inputs:
-  - name: resource-tutorial 
+  - name: resource-tutorial
 
 outputs:
   - name: notification-content
@@ -16,8 +16,8 @@ run:
   args:
   - -exc
   - |
-    REPO_NAME=$(cd source-code && git remote show origin -n | grep "Fetch URL:" | sed -E 's#^.*/(.*)$#\1#' | sed 's#.git$##')
-    LAST_COMMIT_DETAILS=$(cd source-code && git log --oneline -1 --pretty=format:"%cn committed %h on %cd")
+    REPO_NAME=$(cd resource-tutorial && git remote show origin -n | grep "Fetch URL:" | sed -E 's#^.*/(.*)$#\1#' | sed 's#.git$##')
+    LAST_COMMIT_DETAILS=$(cd resource-tutorial && git log --oneline -1 --pretty=format:"%cn committed %h on %cd")
     echo "\n ${LAST_COMMIT_DETAILS}" >> notification-content/notification_body.txt
     echo "FAILED: On repository \n ${REPO_NAME} \n" >> notification-content/notification_repo.txt
       # - put: hipchat 
