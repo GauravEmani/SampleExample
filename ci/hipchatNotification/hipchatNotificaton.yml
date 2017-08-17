@@ -7,25 +7,26 @@ image_resource:
 
 inputs:
   - name: source-code
+  - name: hipchat 
 
 outputs:
   - name: notification-content
 
 run:
-             path: sh
-             args:
-             - -exc
-             - |
-               REPO_NAME=$(cd source-code && git remote show origin -n | grep "Fetch URL:" | sed -E 's#^.*/(.*)$#\1#' | sed 's#.git$##')
-               LAST_COMMIT_DETAILS=$(cd source-code && git log --oneline -1 --pretty=format:"%cn committed %h on %cd")
-               echo "\n ${LAST_COMMIT_DETAILS}" >> notification-content/notification_body.txt
-               echo "FAILED: On repository \n ${REPO_NAME} \n" >> notification-content/notification_repo.txt
-       - put: hipchat 
-         params: 
-          color: red
-          from: "Concourse CI" 
-          message: 
-           template: "${LAST_COMMIT_REPO} \n ${LAST_COMMIT}\n \n. Concourse Job Name :- ${BUILD_JOB_NAME}  \n  <a href='${ATC_EXTERNAL_URL}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}'>Build Logs</a>" 
-           params:
-            LAST_COMMIT: file://notification-content/notification_body.txt
-            LAST_COMMIT_REPO: file://notification-content/notification_repo.txt
+  path: sh
+  args:
+  - -exc
+  - |
+    REPO_NAME=$(cd source-code && git remote show origin -n | grep "Fetch URL:" | sed -E 's#^.*/(.*)$#\1#' | sed 's#.git$##')
+    LAST_COMMIT_DETAILS=$(cd source-code && git log --oneline -1 --pretty=format:"%cn committed %h on %cd")
+    echo "\n ${LAST_COMMIT_DETAILS}" >> notification-content/notification_body.txt
+    echo "FAILED: On repository \n ${REPO_NAME} \n" >> notification-content/notification_repo.txt
+      - put: hipchat 
+          params: 
+           color: red
+           from: "Concourse CI" 
+           message: 
+            template: "${LAST_COMMIT_REPO} \n ${LAST_COMMIT}\n \n. Concourse Job Name :- ${BUILD_JOB_NAME}  \n  <a href='${ATC_EXTERNAL_URL}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}'>Build Logs</a>" 
+            params:
+             LAST_COMMIT: file://notification-content/notification_body.txt
+             LAST_COMMIT_REPO: file://notification-content/notification_repo.txt
