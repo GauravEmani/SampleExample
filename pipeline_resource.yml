@@ -38,6 +38,22 @@ jobs:
             params:
              LAST_COMMIT: file://notification-content/notification_body.txt
              LAST_COMMIT_REPO: file://notification-content/notification_repo.txt
+  - task: unit-test
+    privileged: true
+    file: resource-tutorial/ci/mavenTest/MvnPackage.yml
+    on_success:
+      do:      
+      - task: create-notification
+        file: resource-tutorial/ci/hipchatNotification/hipchatNotification.yml
+      - put: hipchat 
+        params: 
+          color: green
+          from: "Concourse CI" 
+          message: 
+            template: "${LAST_COMMIT_REPO} \n ${LAST_COMMIT}\n \n. Concourse Job Name :- ${BUILD_JOB_NAME}  \n  <a href='${ATC_EXTERNAL_URL}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}'>Build Logs</a>" 
+            params:
+             LAST_COMMIT: file://notification-content/notification_body.txt
+             LAST_COMMIT_REPO: file://notification-content/notification_repo.txt
             
 
         
