@@ -40,7 +40,7 @@ jobs:
              LAST_COMMIT_REPO: file://notification-content/notification_repo.txt
   - task: package
     privileged: true
-    file: resource-tutorial/ci/mavenTest/MvnPackage.yml
+    file: resource-tutorial/ci/mavenPackage/MvnPackage.yml
     on_success:
       do:      
       - task: create-notification
