@@ -8,7 +8,7 @@ image_resource:
     tag: 'latest'
 
 inputs:
-- name: SampleExample
+- name: resource-tutorial
 
 run:
           user: root

@@ -13,7 +13,7 @@ jobs:
     trigger: true
   - task: unit-test
     privileged: true
-    file: resource-tutorial/ci/mavenTest/MvnUnitTest
+    file: resource-tutorial/ci/mavenTest/MvnUnitTest.yml
     
             
 
