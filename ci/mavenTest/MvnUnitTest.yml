@@ -16,4 +16,4 @@ run:
           args:
           - -exc
           - |
-            mvn -f SampleExample/pom.xml test
+            mvn -f resource-tutorial/pom.xml test
