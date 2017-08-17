@@ -15,7 +15,7 @@ resources:
   type: hipchat-notification-resource 
   source: 
      hipchat_server_url: https://api.hipchat.com/v2/room/4062411 
-     token: K3FRBBzL3xiwE55yhWLlXshrIPGyk4VXY0ILbm2T t
+     token: K3FRBBzL3xiwE55yhWLlXshrIPGyk4VXY0ILbm2T
 jobs:
 - name: job-test-app
   public: true
