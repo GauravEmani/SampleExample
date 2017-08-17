@@ -1,0 +1,18 @@
+####################
+#Hipchat Resource-Type
+####################
+resource_types:
+  - name: hipchat-notification-resource 
+    type: docker-image 
+    source: 
+       repository: incontact/hipchat-notification-resource 
+
+#############
+# RESOURCES
+#############
+resources:
+- name: hipchat 
+  type: hipchat-notification-resource 
+  source: 
+     hipchat_server_url: https://api.hipchat.com/v2/room/3977067 
+     token: K3FRBBzL3xiwE55yhWLlXshrIPGyk4VXY0ILbm2T

@@ -1,14 +1,15 @@
-# ---
-# resources:
-# - name: resource-tutorial
-  # type: git
-  # source:
-    # uri: https://github.com/GauravEmani/SampleExample.git
-    # branch: master
+---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/GauravEmani/SampleExample.git
+    branch: master
 jobs:
 - name: job-test-app
   public: true
   plan:
+  - get: resource-tutorial
   - task: unit-test
     config:
       platform: linux
@@ -16,14 +17,14 @@ jobs:
         type: docker-image
         source: {repository: maven,tag: 'latest'}
       inputs:
-        - name: SampleExample
+        - name: resource-tutorial
       run:
           user: root
           path: sh
           args:
           - -exc
           - |
-            mvn -f SampleExample/pom.xml test
+            mvn -f resource-tutorial/pom.xml test
             
 
         

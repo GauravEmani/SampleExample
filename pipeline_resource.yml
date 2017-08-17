@@ -1,0 +1,20 @@
+---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/GauravEmani/SampleExample.git
+    branch: master
+jobs:
+- name: job-test-app
+  public: true
+  plan:
+  - get: resource-tutorial
+    trigger: true
+  - task: unit-test
+    privileged: true
+    file: resource-tutorial/ci/mavenTest/MvnUnitTest
+    
+            
+
+        

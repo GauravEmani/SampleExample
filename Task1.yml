@@ -1,0 +1,19 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: maven
+    tag: 'latest'
+
+inputs:
+- name: SampleExample
+
+run:
+          user: root
+          path: sh
+          args:
+          - -exc
+          - |
+            mvn -f SampleExample/pom.xml test
